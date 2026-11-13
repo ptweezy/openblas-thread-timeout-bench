@@ -6,8 +6,8 @@ name: bench
 #              commit, then times a threaded dgemm after idle gaps (spin_bench.c).
 #   workloads  NumPy / SciPy / scikit-learn workloads from the PyPI wheels, wall and
 #              CPU time per timeout, at the runner's CPU count and at half of it.
-#   service    small-call loops at and above the CPU count, several worker processes,
-#              and one process inside CPU-limited containers.
+#   service    small-call loops at the CPU count, several worker processes, and one
+#              process inside CPU-limited containers.
 
 on:
   workflow_dispatch:
@@ -69,7 +69,7 @@ jobs:
       - name: Sweep
         if: matrix.part == 'sweep'
         env:
-          SWEEP_THREADS: "2,4,8"
+          SWEEP_THREADS: "2,4"
           SWEEP_REPS: "2"
         run: python sweep.py | tee "$OUT_DIR/sweep.txt"
 
@@ -92,12 +92,12 @@ jobs:
           python workloads.py "$n" 3 | tee "$OUT_DIR/workloads-T$n.txt"
           WORKLOADS_TIMEOUTS=default,22,20 python workloads.py $((n / 2)) 3 | tee "$OUT_DIR/workloads-T$((n / 2)).txt"
 
-      - name: Small-call loops at and above the CPU count
+      # OpenBLAS caps its pool at the CPU count, so this is the largest pool there is.
+      - name: Small-call loops at the CPU count
         if: matrix.part == 'service'
         run: |
           n=$(nproc)
-          python rate.py "$n" 3 3 | tee "$OUT_DIR/rate-T$n.txt"
-          python rate.py $((n * 2)) 3 3 | tee "$OUT_DIR/rate-T$((n * 2)).txt"
+          python rate.py "$n" 3 5 | tee "$OUT_DIR/rate-T$n.txt"
 
       - name: Worker processes
         if: matrix.part == 'service'

@@ -8,7 +8,7 @@ Settings:
 Environment:
   OB_ROOT          builds from build.sh (default ./_build)
   OUT_DIR          where sweep.json goes (default ./out)
-  SWEEP_THREADS    comma list (default 2,4,8)
+  SWEEP_THREADS    comma list (default 2,4,8); counts above the CPU count are capped by OpenBLAS
   SWEEP_SETTINGS   comma list (default stock,patched,stock+24,stock+22,stock+20,stock+18)
   SWEEP_REPS       passes over the whole grid; tables show the median (default 1)
   SWEEP_TARGET_S   intended seconds per run (default 0.8)
@@ -55,14 +55,16 @@ def main():
                 for gap_us, mode in GAPS:
                     for setting in order:  # settings innermost, so drift hits all of them alike
                         r = run(setting, threads, n, gap_us, mode)
-                        r.update(setting=setting, rep=rep)
+                        # OpenBLAS caps its pool at the CPU count, so "threads" in the
+                        # output can be lower than what was asked for.
+                        r.update(setting=setting, rep=rep, requested=threads)
                         results.append(r)
             print(f"rep {rep + 1}/{REPS} threads={threads} done", file=sys.stderr, flush=True)
     with open(os.path.join(OUT, "sweep.json"), "w") as f:
         json.dump(results, f)
 
     def agg(setting, threads, n, gap_us, mode, fn):
-        vals = [fn(r) for r in results if (r["setting"], r["threads"], r["n"], r["gap_us"], r["mode"]) == (setting, threads, n, float(gap_us), mode)]
+        vals = [fn(r) for r in results if (r["setting"], r["requested"], r["n"], r["gap_us"], r["mode"]) == (setting, threads, n, float(gap_us), mode)]
         return statistics.median(vals)
 
     print(f"spin_bench sweep, {os.cpu_count()} CPUs, median of {REPS} pass(es)")

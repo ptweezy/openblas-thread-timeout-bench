@@ -1,5 +1,6 @@
 """Throughput of small-call loops for a fixed wall-clock budget, so that a pathological
-setting cannot run for minutes. Meant for thread counts at or above the CPU count.
+setting cannot run for minutes. Meant for a pool as large as the CPU count (OpenBLAS
+caps the pool there, so a larger THREADS behaves the same).
 
   python rate.py THREADS [SECONDS] [REPS]
 

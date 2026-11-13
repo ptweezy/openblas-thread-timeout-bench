@@ -10,7 +10,7 @@ Related upstream issues: [#5171](https://github.com/OpenMathLib/OpenBLAS/issues/
 
 - `spin_bench.c`, driven by `sweep.py`: the latency of a threaded `dgemm` after an idle gap, and the process CPU time, for the unchanged build, the patched build, and the unchanged build with several `OPENBLAS_THREAD_TIMEOUT` values. The gap is either single-threaded work in the calling thread or a sleep.
 - `workloads.py`: 25 NumPy, SciPy and scikit-learn workloads (LAPACK factorizations, loops of small calls with interpreter work between them, model fits, a request loop with pauses). Wall time and CPU time per timeout, each compared with the default of the same repetition.
-- `rate.py`: calls per second of small-call loops under a fixed time budget, for thread counts at or above the CPU count.
+- `rate.py`: calls per second of small-call loops under a fixed time budget, for a pool as large as the CPU count.
 - `multiproc.py`: several worker processes, each with a default-sized pool, each handling requests of one matmul plus 5 ms of single-threaded work.
 - `cgroup_limit.py`: the same request loop in a container whose CPU quota is smaller than the number of visible CPUs.
 
