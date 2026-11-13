@@ -1,0 +1,12 @@
+--- docker --cpus=2: cgroup CPU limit 2 CPUs, 16 CPUs visible, median of 5 runs ---
+timeout      wall s    req/s    CPU s   p50 ms   p99 ms  throttled  thr. ms
+default       19.28       10     38.7    99.33   194.95        196   181526
+24             7.89       25     16.0    12.46    92.45         80    48274
+22             6.11       33     12.4    16.00    97.36         63    21109
+20             2.87       70      5.9     7.09    76.03         29     5286
+--- docker --cpus=4: cgroup CPU limit 4 CPUs, 16 CPUs visible, median of 5 runs ---
+timeout      wall s    req/s    CPU s   p50 ms   p99 ms  throttled  thr. ms
+default        7.44       27     30.3    13.27   100.64         77    83356
+24             3.71       54     15.0     8.95    66.24         37    15219
+22             1.26      159      4.8     6.20    10.38          1        2
+20             1.17      171      2.4     5.63    10.32          0        0

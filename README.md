@@ -33,4 +33,6 @@ python rate.py 8
 python multiproc.py
 ```
 
-Results go to `./out` (or `OUT_DIR`).
+Results go to `./out` (or `OUT_DIR`). `aggregate.py` combines the artifacts of a workflow run into per-runner tables.
+
+See [RESULTS.md](RESULTS.md) for the numbers so far.

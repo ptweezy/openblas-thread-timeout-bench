@@ -1,0 +1,692 @@
+
+====================================================================================================
+ubuntu-24.04
+  sweep-ubuntu-24.04-1: AMD EPYC 9V74 80-Core Processor (4 CPUs)
+  sweep-ubuntu-24.04-2: AMD EPYC 9V74 80-Core Processor (4 CPUs)
+  workloads-ubuntu-24.04-1: AMD EPYC 7763 64-Core Processor (4 CPUs)
+  workloads-ubuntu-24.04-2: AMD EPYC 9V74 80-Core Processor (4 CPUs)
+  service-ubuntu-24.04-1: AMD EPYC 7763 64-Core Processor (4 CPUs)
+  service-ubuntu-24.04-2: AMD EPYC 7763 64-Core Processor (4 CPUs)
+====================================================================================================
+
+sweep: median microseconds per dgemm call (median over 2 VM(s) and their passes)
+threads=2 n=300
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy              524       524       525       525       525       524
+  100 us busy            526       525       523       526       525       525
+  1000 us busy           526       526       527       527       530       531
+  3000 us busy           533       536       535       537       537       536
+  10000 us busy          562       566       552       567       565       569
+  20000 us sleep         586       637       598       591       611       616
+  200000 us sleep        747       704       684       703       648       704
+threads=2 n=1000
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy            18259     18234     18307     18308     18261     18250
+  100 us busy          18215     18214     18277     18246     18265     18240
+  1000 us busy         18284     18273     18315     18289     18306     18304
+  3000 us busy         18315     18305     18298     18304     18310     18326
+  10000 us busy        18282     18316     18290     18356     18369     18377
+  20000 us sleep       18484     18453     18453     18451     18449     18382
+  200000 us sleep      18713     18711     18815     18701     18742     18833
+threads=4 n=300
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy              521       513       523       522       515       516
+  100 us busy            522       520       522       522       520       530
+  1000 us busy           522       523       523       524       529       529
+  3000 us busy           528       535       528       535       535       534
+  10000 us busy          538       557       551       558       558       558
+  20000 us sleep         558       579       581       585       588       649
+  200000 us sleep        670       867       851       721       782       753
+threads=4 n=1000
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy            18055     18048     18055     18073     18054     18045
+  100 us busy          18013     17996     18067     18002     18011     18017
+  1000 us busy         18020     18068     18067     18024     18038     18048
+  3000 us busy         18078     18118     18062     18032     18102     18026
+  10000 us busy        18133     18128     18138     18150     18071     18165
+  20000 us sleep       18128     18172     18238     18245     18229     18237
+  200000 us sleep      18470     18528     18582     18520     18569     18601
+
+sweep: mean microseconds per dgemm call (median over 2 VM(s) and their passes)
+threads=2 n=300
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy              526       526       527       525       528       528
+  100 us busy            527       527       525       529       530       527
+  1000 us busy           530       529       530       529       531       531
+  3000 us busy           537       536       539       537       537       536
+  10000 us busy          564       569       554       570       568       567
+  20000 us sleep         609       631       626       628       614       629
+  200000 us sleep        712       721       698       723       649       707
+threads=2 n=1000
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy            18267     18256     18330     18370     18327     18269
+  100 us busy          18358     18226     18298     18331     18280     18267
+  1000 us busy         18335     18335     18314     18326     18310     18315
+  3000 us busy         18326     18314     18306     18332     18318     18329
+  10000 us busy        18295     18331     18308     18380     18381     18394
+  20000 us sleep       18491     18470     18472     18459     18462     18401
+  200000 us sleep      18705     18714     18794     18730     18738     18817
+threads=4 n=300
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy              527       522       527       526       520       521
+  100 us busy            527       527       527       526       525       534
+  1000 us busy           530       531       532       532       536       531
+  3000 us busy           538       546       541       544       545       540
+  10000 us busy          543       563       562       584       584       565
+  20000 us sleep         564       586       586       611       664       691
+  200000 us sleep        721       804       799       743       802       743
+threads=4 n=1000
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy            18107     18086     18101     18092     18059     18107
+  100 us busy          18048     18092     18084     18026     18073     18055
+  1000 us busy         18060     18115     18092     18102     18058     18059
+  3000 us busy         18193     18153     18070     18059     18132     18100
+  10000 us busy        18156     18217     18172     18154     18085     18251
+  20000 us sleep       18156     18242     18315     18311     18302     18363
+  200000 us sleep      18468     18569     18588     18539     18583     18576
+
+sweep: average cores busy (median over 2 VM(s) and their passes)
+threads=2 n=300
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy             2.00      2.00      2.00      2.00      2.00      2.00
+  100 us busy           2.00      2.00      2.00      2.00      2.00      2.00
+  1000 us busy          2.00      2.00      2.00      2.00      1.61      1.41
+  3000 us busy          2.00      1.61      2.00      1.61      1.26      1.18
+  10000 us busy         2.00      1.20      1.66      1.20      1.09      1.06
+  20000 us sleep        1.03      0.14      0.37      0.14      0.08      0.07
+  200000 us sleep       0.52      0.02      0.04      0.02      0.01      0.01
+threads=2 n=1000
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy             2.00      2.00      2.00      2.00      2.00      2.00
+  100 us busy           2.00      2.00      2.00      2.00      2.00      2.00
+  1000 us busy          2.00      2.00      2.00      2.00      1.97      1.95
+  3000 us busy          2.00      1.93      2.00      1.93      1.88      1.86
+  10000 us busy         2.00      1.70      1.87      1.70      1.66      1.65
+  20000 us sleep        1.48      1.00      1.13      1.00      0.97      0.96
+  200000 us sleep       0.64      0.18      0.20      0.18      0.17      0.17
+threads=4 n=300
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy             3.98      3.98      3.99      3.99      3.98      3.97
+  100 us busy           3.99      3.98      3.99      3.99      3.98      3.93
+  1000 us busy          3.99      3.98      3.99      3.98      2.80      2.21
+  3000 us busy          3.99      2.81      3.99      2.81      1.79      1.53
+  10000 us busy         3.99      1.61      2.99      1.61      1.27      1.18
+  20000 us sleep        3.02      0.35      1.05      0.35      0.18      0.14
+  200000 us sleep       1.56      0.04      0.11      0.04      0.02      0.02
+threads=4 n=1000
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy             3.99      3.98      3.99      3.98      3.98      3.98
+  100 us busy           3.99      3.98      3.99      3.98      3.98      3.98
+  1000 us busy          3.99      3.98      3.99      3.99      3.89      3.84
+  3000 us busy          3.99      3.79      3.99      3.79      3.61      3.57
+  10000 us busy         3.99      3.10      3.61      3.10      2.97      2.93
+  20000 us sleep        3.47      2.02      2.40      2.02      1.93      1.91
+  200000 us sleep       1.75      0.36      0.43      0.36      0.34      0.34
+
+workloads, 4 threads: WALL time vs default (2 VM(s), 6 paired runs per timeout)
+                                             default      24      22      20      18
+lapack: LU solve 3000                          1.562   0.98x   0.97x   0.98x   0.98x
+lapack: cholesky 3000                          1.864   0.96x   0.95x   0.96x   0.96x
+lapack: svd 800                                0.342   0.96x   0.95x   0.93x   0.95x
+lapack: eigh 1200                              0.361   0.98x   0.97x   0.96x   0.97x
+lapack: qr 1500                                0.821   0.97x   0.94x   0.96x   0.97x
+lapack: lstsq 4000x300                         0.188   1.00x   0.93x   0.91x   0.91x
+lapack: inv 600                                0.215   0.98x   0.99x   1.00x   0.99x
+scipy: expm 400                                0.101   1.00x   0.95x   1.00x   0.97x
+loop: solve 100 x20000                         1.821   1.00x   0.99x   0.99x   0.99x
+loop: solve 400 x1500                          2.031   1.00x   1.00x   1.01x   1.01x
+loop: power iteration 1500 x2000               0.291   1.01x   1.00x   1.00x   1.00x
+loop: tanh(W @ h) 256 x4000                    4.509   0.99x   1.00x   0.92x   0.89x
+loop: numpy MLP forward x400                   3.144   1.00x   0.99x   1.00x   0.99x
+numpy: cov 5000x400                            0.136   1.01x   0.97x   1.00x   0.97x
+sklearn: LogisticRegression fit                0.378   0.50x   0.32x   0.18x   0.13x
+sklearn: Ridge fit 50000x200                   0.567   0.46x   0.48x   0.45x   0.44x
+sklearn: LinearRegression 50000x200            0.575   0.96x   0.97x   0.96x   0.95x
+sklearn: PCA full 5000x300                     0.306   0.99x   0.98x   0.96x   0.95x
+sklearn: PCA randomized 20000x300              1.653   0.38x   0.31x   0.30x   0.29x
+sklearn: KMeans 100000x20                      0.167   0.49x   0.49x   0.47x   0.49x
+sklearn: GaussianProcess fit 600               0.677   0.99x   0.93x   0.91x   0.90x
+sklearn: MLPClassifier fit                     0.315   1.00x   1.02x   1.02x   1.08x
+sklearn: MLP predict x3000 back-to-back        1.268   0.99x   0.99x   0.99x   0.99x
+service: MLP predict every 20 ms x100          2.077   1.00x   1.00x   1.00x   1.01x
+service: MLP predict every 200 ms x15          3.015   1.00x   1.00x   1.00x   1.00x
+geometric mean                                         0.87x   0.84x   0.82x   0.81x
+worse by more than 10%                                     0       0       0       0
+better by more than 10%                                    4       4       4       5
+
+workloads, 4 threads: CPU time vs default (2 VM(s), 6 paired runs per timeout)
+                                             default      24      22      20      18
+lapack: LU solve 3000                          6.368   0.84x   0.82x   0.82x   0.81x
+lapack: cholesky 3000                          7.483   0.71x   0.67x   0.66x   0.65x
+lapack: svd 800                                1.642   0.72x   0.60x   0.49x   0.46x
+lapack: eigh 1200                              1.690   0.80x   0.74x   0.71x   0.69x
+lapack: qr 1500                                3.502   0.78x   0.71x   0.71x   0.70x
+lapack: lstsq 4000x300                         1.012   0.63x   0.51x   0.46x   0.42x
+lapack: inv 600                                1.171   0.73x   0.72x   0.69x   0.66x
+scipy: expm 400                                0.717   0.58x   0.51x   0.48x   0.46x
+loop: solve 100 x20000                         7.534   0.96x   0.95x   0.95x   0.95x
+loop: solve 400 x1500                          8.395   0.97x   0.97x   0.97x   0.84x
+loop: power iteration 1500 x2000               1.476   0.81x   0.78x   0.78x   0.78x
+loop: tanh(W @ h) 256 x4000                   18.251   0.97x   0.97x   0.76x   0.66x
+loop: numpy MLP forward x400                  12.815   0.97x   0.97x   0.97x   0.95x
+numpy: cov 5000x400                            0.846   0.65x   0.58x   0.55x   0.53x
+sklearn: LogisticRegression fit                1.893   0.40x   0.24x   0.12x   0.07x
+sklearn: Ridge fit 50000x200                   2.496   0.28x   0.27x   0.26x   0.24x
+sklearn: LinearRegression 50000x200            2.163   0.72x   0.64x   0.61x   0.59x
+sklearn: PCA full 5000x300                     1.485   0.73x   0.68x   0.63x   0.59x
+sklearn: PCA randomized 20000x300              6.896   0.34x   0.27x   0.24x   0.21x
+sklearn: KMeans 100000x20                      0.554   0.32x   0.30x   0.25x   0.25x
+sklearn: GaussianProcess fit 600               2.996   0.87x   0.67x   0.56x   0.53x
+sklearn: MLPClassifier fit                     1.550   0.80x   0.80x   0.81x   0.58x
+sklearn: MLP predict x3000 back-to-back        5.344   0.93x   0.93x   0.94x   0.68x
+service: MLP predict every 20 ms x100          6.546   0.33x   0.10x   0.04x   0.03x
+service: MLP predict every 200 ms x15          4.821   0.07x   0.02x   0.01x   0.01x
+geometric mean                                         0.60x   0.50x   0.43x   0.38x
+worse by more than 10%                                     0       0       0       0
+better by more than 10%                                   20      20      21      23
+
+workloads, 2 threads: WALL time vs default (2 VM(s), 6 paired runs per timeout)
+                                             default      22      20
+lapack: LU solve 3000                          1.674   1.00x   1.00x
+lapack: cholesky 3000                          1.819   1.00x   1.00x
+lapack: svd 800                                0.298   1.01x   1.02x
+lapack: eigh 1200                              0.330   1.00x   1.01x
+lapack: qr 1500                                0.747   1.00x   1.00x
+lapack: lstsq 4000x300                         0.170   1.00x   1.00x
+lapack: inv 600                                0.227   1.00x   1.01x
+scipy: expm 400                                0.096   0.98x   1.00x
+loop: solve 100 x20000                         1.330   1.00x   1.00x
+loop: solve 400 x1500                          2.283   0.99x   1.00x
+loop: power iteration 1500 x2000               0.281   1.00x   1.01x
+loop: tanh(W @ h) 256 x4000                    3.571   1.00x   1.01x
+loop: numpy MLP forward x400                   3.164   1.00x   0.99x
+numpy: cov 5000x400                            0.132   1.00x   1.01x
+sklearn: LogisticRegression fit                0.049   0.97x   1.03x
+sklearn: Ridge fit 50000x200                   0.290   0.91x   0.90x
+sklearn: LinearRegression 50000x200            0.570   1.01x   1.00x
+sklearn: PCA full 5000x300                     0.285   1.00x   1.00x
+sklearn: PCA randomized 20000x300              0.598   0.91x   0.92x
+sklearn: KMeans 100000x20                      0.104   0.78x   0.77x
+sklearn: GaussianProcess fit 600               0.608   1.01x   0.99x
+sklearn: MLPClassifier fit                     0.250   1.01x   1.01x
+sklearn: MLP predict x3000 back-to-back        1.019   1.01x   1.00x
+service: MLP predict every 20 ms x100          2.070   1.00x   1.00x
+service: MLP predict every 200 ms x15          3.014   1.00x   1.00x
+geometric mean                                         0.98x   0.99x
+worse by more than 10%                                     0       0
+better by more than 10%                                    1       2
+
+workloads, 2 threads: CPU time vs default (2 VM(s), 6 paired runs per timeout)
+                                             default      22      20
+lapack: LU solve 3000                          3.405   0.88x   0.87x
+lapack: cholesky 3000                          3.681   0.81x   0.81x
+lapack: svd 800                                0.692   0.73x   0.66x
+lapack: eigh 1200                              0.751   0.82x   0.81x
+lapack: qr 1500                                1.576   0.84x   0.83x
+lapack: lstsq 4000x300                         0.430   0.66x   0.63x
+lapack: inv 600                                0.559   0.80x   0.74x
+scipy: expm 400                                0.297   0.61x   0.58x
+loop: solve 100 x20000                         2.767   0.96x   0.97x
+loop: solve 400 x1500                          4.672   0.96x   0.88x
+loop: power iteration 1500 x2000               0.668   0.84x   0.84x
+loop: tanh(W @ h) 256 x4000                    7.247   0.99x   0.90x
+loop: numpy MLP forward x400                   6.433   0.98x   0.97x
+numpy: cov 5000x400                            0.366   0.70x   0.66x
+sklearn: LogisticRegression fit                0.348   0.34x   0.28x
+sklearn: Ridge fit 50000x200                   0.989   0.45x   0.43x
+sklearn: LinearRegression 50000x200            1.115   0.80x   0.76x
+sklearn: PCA full 5000x300                     0.659   0.78x   0.75x
+sklearn: PCA randomized 20000x300              1.953   0.54x   0.49x
+sklearn: KMeans 100000x20                      0.281   0.48x   0.45x
+sklearn: GaussianProcess fit 600               1.316   0.81x   0.73x
+sklearn: MLPClassifier fit                     0.603   0.82x   0.82x
+sklearn: MLP predict x3000 back-to-back        2.143   0.96x   0.95x
+service: MLP predict every 20 ms x100          2.218   0.12x   0.06x
+service: MLP predict every 200 ms x15          1.616   0.03x   0.01x
+geometric mean                                         0.60x   0.55x
+worse by more than 10%                                     0       0
+better by more than 10%                                   20      21
+
+small-call loops, 4 threads: calls per second vs default (higher is better) (2 VM(s), 6 paired runs per timeout)
+                                             default      24      22      20      18
+solve 100x100                              10706.713   1.00x   1.00x   1.00x   1.00x
+solve 400x400                                686.280   0.99x   1.01x   1.01x   1.01x
+matvec 1500 + norm                          6771.659   1.00x   1.00x   1.00x   1.00x
+tanh(W @ h) 256                              566.403   1.01x   1.01x   1.18x   1.27x
+MLP forward 512x784                          119.408   1.01x   1.01x   1.01x   1.02x
+matmul 1000x1000                              44.328   1.00x   1.00x   1.01x   1.00x
+geometric mean                                         1.00x   1.01x   1.03x   1.04x
+worse by more than 10%                                     0       0       0       0
+better by more than 10%                                    0       0       1       1
+
+small-call loops, 8 threads: calls per second vs default (higher is better) (2 VM(s), 6 paired runs per timeout)
+                                             default      24      22      20      18
+solve 100x100                              10692.259   1.00x   0.99x   0.99x   1.00x
+solve 400x400                                690.759   1.00x   1.00x   1.00x   1.00x
+matvec 1500 + norm                          6770.790   1.00x   0.99x   1.00x   1.00x
+tanh(W @ h) 256                              572.940   1.00x   1.00x   1.17x   1.26x
+MLP forward 512x784                          119.652   1.01x   1.01x   1.01x   1.02x
+matmul 1000x1000                              44.496   1.00x   1.00x   1.00x   1.00x
+geometric mean                                         1.00x   1.00x   1.03x   1.04x
+worse by more than 10%                                     0       0       0       0
+better by more than 10%                                    0       0       1       1
+
+multiproc.txt from service-ubuntu-24.04-1
+200 requests per process; each = one 256x256 matmul + 5 ms single-threaded work
+(the single-threaded work alone is 1.00 s per process; 4 CPUs; median of 3 runs)
+
+--- 1 process(es) ---
+timeout      wall s    req/s    CPU s   p50 ms   p99 ms
+default        1.13      177      4.5     5.64     6.07
+24             1.13      178      4.5     5.62     6.01
+22             1.14      175      2.5     5.70     6.15
+20             1.14      175      1.8     5.71     6.31
+--- 2 process(es) ---
+timeout      wall s    req/s    CPU s   p50 ms   p99 ms
+default        2.75      146     10.9    12.00    27.01
+24             2.22      180      8.8    10.25    19.06
+22             1.70      236      6.4     8.00    18.36
+20             1.31      305      3.8     6.29    12.94
+--- 4 process(es) ---
+timeout      wall s    req/s    CPU s   p50 ms   p99 ms
+default        6.94      115     27.4    36.00    54.00
+24             4.48      179     17.8    22.18    41.00
+22             3.99      200     15.7    20.50    36.59
+20             3.27      244     12.3    15.06    29.48
+
+multiproc.txt from service-ubuntu-24.04-2
+200 requests per process; each = one 256x256 matmul + 5 ms single-threaded work
+(the single-threaded work alone is 1.00 s per process; 4 CPUs; median of 3 runs)
+
+--- 1 process(es) ---
+timeout      wall s    req/s    CPU s   p50 ms   p99 ms
+default        1.15      174      4.6     5.72     6.78
+24             1.14      175      4.5     5.68     6.83
+22             1.17      172      2.6     5.78     8.31
+20             1.18      169      1.9     5.92     6.36
+--- 2 process(es) ---
+timeout      wall s    req/s    CPU s   p50 ms   p99 ms
+default        2.84      141     11.1    17.95    29.00
+24             2.30      174      9.1    10.19    25.00
+22             1.68      238      6.3     8.01    15.31
+20             1.27      315      3.7     6.28     9.23
+--- 4 process(es) ---
+timeout      wall s    req/s    CPU s   p50 ms   p99 ms
+default        6.58      121     26.1    35.03    57.00
+24             4.64      172     18.5    22.06    47.06
+22             4.05      198     16.0    21.02    35.26
+20             3.07      261     11.8    15.38    29.07
+
+cgroup.txt from service-ubuntu-24.04-1
+--- docker --cpus=1: cgroup CPU limit 1 CPUs, 4 CPUs visible, median of 3 runs ---
+timeout      wall s    req/s    CPU s   p50 ms   p99 ms  throttled  thr. ms
+default        4.04       50      4.1     5.66    82.80         45    12723
+24             3.99       50      4.1     5.66    81.76         41    11659
+22             2.49       80      2.5     5.71    60.47         26     5304
+20             1.71      117      1.8     5.72    42.68         18     1266
+--- docker --cpus=2: cgroup CPU limit 2 CPUs, 4 CPUs visible, median of 3 runs ---
+timeout      wall s    req/s    CPU s   p50 ms   p99 ms  throttled  thr. ms
+default        2.17       92      4.5     5.62    55.55         23     4423
+24             2.10       95      4.4     5.62    54.81         22     4174
+22             1.24      161      2.5     5.70    14.91         11      438
+20             1.16      173      1.8     5.79     5.86          0        0
+
+cgroup.txt from service-ubuntu-24.04-2
+--- docker --cpus=1: cgroup CPU limit 1 CPUs, 4 CPUs visible, median of 3 runs ---
+timeout      wall s    req/s    CPU s   p50 ms   p99 ms  throttled  thr. ms
+default        4.36       46      4.4     5.85    82.72         49    13830
+24             4.24       47      4.3     5.84    82.70         45    12398
+22             2.60       77      2.7     5.81    65.07         27     5600
+20             1.81      111      1.9     5.91    45.98         18     1550
+--- docker --cpus=2: cgroup CPU limit 2 CPUs, 4 CPUs visible, median of 3 runs ---
+timeout      wall s    req/s    CPU s   p50 ms   p99 ms  throttled  thr. ms
+default        2.21       91      4.5     5.72    58.40         24     4553
+24             2.19       91      4.5     5.72    59.38         23     4218
+22             1.29      155      2.6     5.81    18.71         12      470
+20             1.16      173      1.8     5.76     5.96          0        0
+
+====================================================================================================
+ubuntu-24.04-arm
+  sweep-ubuntu-24.04-arm-1: Neoverse-N2 (4 CPUs)
+  sweep-ubuntu-24.04-arm-2: Neoverse-N2 (4 CPUs)
+  workloads-ubuntu-24.04-arm-1: Neoverse-N2 (4 CPUs)
+  workloads-ubuntu-24.04-arm-2: Neoverse-N2 (4 CPUs)
+  service-ubuntu-24.04-arm-1: Neoverse-N2 (4 CPUs)
+  service-ubuntu-24.04-arm-2: Neoverse-N2 (4 CPUs)
+====================================================================================================
+
+sweep: median microseconds per dgemm call (median over 2 VM(s) and their passes)
+threads=2 n=300
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy             1140      1140      1138      1141      1140      1143
+  100 us busy           1140      1141      1140      1141      1140      1154
+  1000 us busy          1139      1139      1138      1138      1156      1162
+  3000 us busy          1141      1156      1145      1161      1158      1160
+  10000 us busy         1150      1176      1174      1174      1176      1180
+  20000 us sleep        1185      1212      1204      1232      1214      1249
+  200000 us sleep       1309      1304      1314      1307      1309      1303
+threads=2 n=1000
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy            40037     40060     40102     40055     40026     40061
+  100 us busy          40118     40168     40191     40191     40276     40203
+  1000 us busy         40187     40159     40154     40156     40222     40253
+  3000 us busy         40109     40222     40162     40268     40273     40275
+  10000 us busy        40303     40121     40134     40216     40176     40152
+  20000 us sleep       40204     40143     40186     40246     40229     40174
+  200000 us sleep      40169     40076     40208     40332     40047     40232
+threads=4 n=300
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy              583       583       584       583       583       583
+  100 us busy            581       583       581       583       583       598
+  1000 us busy           581       579       580       580       596       598
+  3000 us busy           581       597       582       597       599       598
+  10000 us busy          587       605       601       607       607       609
+  20000 us sleep         589       708       716       717       705       713
+  200000 us sleep        733       733       726       730       727       727
+threads=4 n=1000
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy            20250     20237     20252     20206     20234     20245
+  100 us busy          20273     20259     20242     20240     20279     20233
+  1000 us busy         20255     20243     20249     20251     20232     20180
+  3000 us busy         20267     20197     20269     20158     20162     20171
+  10000 us busy        20306     20191     20187     20171     20177     20181
+  20000 us sleep       20193     20272     20244     20237     20197     20223
+  200000 us sleep      20270     20318     20356     20330     20323     20339
+
+sweep: mean microseconds per dgemm call (median over 2 VM(s) and their passes)
+threads=2 n=300
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy             1142      1144      1140      1143      1142      1145
+  100 us busy           1142      1145      1143      1143      1143      1155
+  1000 us busy          1140      1140      1140      1140      1158      1166
+  3000 us busy          1147      1158      1147      1163      1160      1162
+  10000 us busy         1152      1180      1178      1177      1184      1183
+  20000 us sleep        1190      1225      1230      1237      1233      1243
+  200000 us sleep       1300      1293      1303      1294      1281      1278
+threads=2 n=1000
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy            40031     40177     40108     40062     40025     40067
+  100 us busy          40140     40181     40206     40196     40522     40264
+  1000 us busy         40212     40165     40238     40165     40221     40253
+  3000 us busy         40112     40427     40241     40274     40318     40274
+  10000 us busy        40302     40125     40135     40218     40180     40146
+  20000 us sleep       40337     40179     40170     40242     40223     40170
+  200000 us sleep      40168     40065     40206     40413     40057     40217
+threads=4 n=300
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy              589       589       591       591       591       591
+  100 us busy            591       591       589       592       589       607
+  1000 us busy           591       590       587       590       603       633
+  3000 us busy           591       604       600       609       621       601
+  10000 us busy          592       620       610       617       618       613
+  20000 us sleep         596       694       706       701       695       687
+  200000 us sleep        733       725       717       724       726       722
+threads=4 n=1000
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy            20456     20337     20421     20331     20333     20398
+  100 us busy          20395     20336     20443     20391     20390     20295
+  1000 us busy         20452     20330     20407     20446     20332     20257
+  3000 us busy         20477     20285     20484     20229     20223     20285
+  10000 us busy        20499     20280     20283     20259     20326     20277
+  20000 us sleep       20313     20361     20300     20304     20325     20297
+  200000 us sleep      20409     20399     20384     20359     20496     20416
+
+sweep: average cores busy (median over 2 VM(s) and their passes)
+threads=2 n=300
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy             2.00      2.00      2.00      2.00      2.00      2.00
+  100 us busy           2.00      2.00      2.00      2.00      2.00      1.96
+  1000 us busy          2.00      2.00      2.00      2.00      1.65      1.56
+  3000 us busy          2.00      1.53      2.00      1.53      1.34      1.29
+  10000 us busy         2.00      1.20      1.48      1.20      1.13      1.11
+  20000 us sleep        1.06      0.16      0.31      0.16      0.13      0.12
+  200000 us sleep       0.35      0.02      0.03      0.02      0.01      0.01
+threads=2 n=1000
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy             2.00      2.00      2.00      2.00      2.00      2.00
+  100 us busy           2.00      2.00      2.00      2.00      2.00      2.00
+  1000 us busy          2.00      2.00      2.00      2.00      1.98      1.98
+  3000 us busy          2.00      1.95      2.00      1.95      1.94      1.93
+  10000 us busy         2.00      1.82      1.88      1.82      1.81      1.80
+  20000 us sleep        1.67      1.35      1.40      1.35      1.34      1.33
+  200000 us sleep       0.61      0.34      0.35      0.34      0.33      0.33
+threads=4 n=300
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy             3.98      3.98      3.98      3.98      3.97      3.96
+  100 us busy           3.98      3.98      3.98      3.98      3.97      3.76
+  1000 us busy          3.98      3.98      3.99      3.98      2.58      2.21
+  3000 us busy          3.99      2.36      3.98      2.36      1.71      1.54
+  10000 us busy         3.99      1.46      2.35      1.46      1.24      1.19
+  20000 us sleep        3.02      0.27      0.73      0.27      0.16      0.13
+  200000 us sleep       1.01      0.03      0.08      0.03      0.02      0.01
+threads=4 n=1000
+  gap                  stock   patched  stock+24  stock+22  stock+20  stock+18
+  0 us busy             3.98      3.98      3.98      3.98      3.98      3.97
+  100 us busy           3.98      3.98      3.98      3.98      3.98      3.97
+  1000 us busy          3.98      3.98      3.98      3.97      3.88      3.85
+  3000 us busy          3.98      3.73      3.97      3.74      3.63      3.60
+  10000 us busy         3.98      3.10      3.41      3.10      3.02      3.00
+  20000 us sleep        3.50      2.08      2.31      2.08      2.02      2.01
+  200000 us sleep       1.28      0.38      0.42      0.38      0.37      0.37
+
+workloads, 4 threads: WALL time vs default (2 VM(s), 6 paired runs per timeout)
+                                             default      24      22      20      18
+lapack: LU solve 3000                          1.447   0.99x   1.00x   1.00x   1.00x
+lapack: cholesky 3000                          1.590   0.99x   0.99x   1.00x   1.00x
+lapack: svd 800                                0.325   1.01x   1.01x   1.00x   1.04x
+lapack: eigh 1200                              0.352   0.99x   1.00x   0.99x   1.00x
+lapack: qr 1500                                0.732   1.00x   1.00x   1.00x   1.02x
+lapack: lstsq 4000x300                         0.147   1.00x   1.00x   1.00x   1.03x
+lapack: inv 600                                0.164   1.00x   1.00x   0.99x   1.00x
+scipy: expm 400                                0.083   1.00x   1.00x   1.01x   1.04x
+loop: solve 100 x20000                         1.692   0.99x   1.00x   1.00x   1.00x
+loop: solve 400 x1500                          1.736   0.99x   1.00x   1.00x   1.03x
+loop: power iteration 1500 x2000               0.232   1.00x   1.00x   0.98x   1.00x
+loop: tanh(W @ h) 256 x4000                    3.307   1.00x   1.00x   1.02x   1.01x
+loop: numpy MLP forward x400                   2.993   1.00x   1.00x   0.99x   1.00x
+numpy: cov 5000x400                            0.124   1.00x   1.00x   0.98x   0.99x
+sklearn: LogisticRegression fit                0.211   0.86x   0.46x   0.28x   0.22x
+sklearn: Ridge fit 50000x200                   0.386   0.61x   0.63x   0.62x   0.64x
+sklearn: LinearRegression 50000x200            0.496   1.00x   1.00x   1.02x   1.03x
+sklearn: PCA full 5000x300                     0.251   0.99x   0.99x   1.00x   0.98x
+sklearn: PCA randomized 20000x300              1.682   0.29x   0.26x   0.26x   0.25x
+sklearn: KMeans 100000x20                      0.128   0.60x   0.57x   0.58x   0.57x
+sklearn: GaussianProcess fit 600               0.886   0.99x   0.99x   1.00x   0.98x
+sklearn: MLPClassifier fit                     0.296   0.99x   0.99x   1.07x   1.10x
+sklearn: MLP predict x3000 back-to-back        1.321   1.00x   1.01x   1.00x   1.11x
+service: MLP predict every 20 ms x100          2.076   1.01x   1.02x   1.01x   1.01x
+service: MLP predict every 200 ms x15          3.017   1.00x   1.00x   1.00x   1.00x
+geometric mean                                         0.91x   0.88x   0.87x   0.87x
+worse by more than 10%                                     0       0       0       2
+better by more than 10%                                    4       4       4       4
+
+workloads, 4 threads: CPU time vs default (2 VM(s), 6 paired runs per timeout)
+                                             default      24      22      20      18
+lapack: LU solve 3000                          5.837   0.87x   0.87x   0.86x   0.85x
+lapack: cholesky 3000                          6.369   0.76x   0.74x   0.72x   0.72x
+lapack: svd 800                                1.468   0.79x   0.72x   0.69x   0.68x
+lapack: eigh 1200                              1.562   0.85x   0.81x   0.78x   0.75x
+lapack: qr 1500                                3.044   0.82x   0.79x   0.78x   0.76x
+lapack: lstsq 4000x300                         0.741   0.65x   0.60x   0.58x   0.57x
+lapack: inv 600                                0.849   0.78x   0.76x   0.72x   0.70x
+scipy: expm 400                                0.532   0.65x   0.63x   0.60x   0.59x
+loop: solve 100 x20000                         6.934   0.97x   0.97x   0.97x   0.97x
+loop: solve 400 x1500                          7.087   0.97x   0.97x   0.97x   0.88x
+loop: power iteration 1500 x2000               1.129   0.83x   0.82x   0.80x   0.82x
+loop: tanh(W @ h) 256 x4000                   13.348   0.99x   0.98x   0.81x   0.63x
+loop: numpy MLP forward x400                  12.099   0.98x   0.98x   0.98x   0.96x
+numpy: cov 5000x400                            0.683   0.72x   0.63x   0.59x   0.58x
+sklearn: LogisticRegression fit                1.084   0.66x   0.32x   0.15x   0.10x
+sklearn: Ridge fit 50000x200                   1.694   0.38x   0.37x   0.36x   0.36x
+sklearn: LinearRegression 50000x200            1.812   0.76x   0.65x   0.63x   0.62x
+sklearn: PCA full 5000x300                     1.154   0.77x   0.72x   0.68x   0.64x
+sklearn: PCA randomized 20000x300              6.809   0.26x   0.22x   0.20x   0.19x
+sklearn: KMeans 100000x20                      0.381   0.53x   0.48x   0.45x   0.42x
+sklearn: GaussianProcess fit 600               3.644   0.86x   0.68x   0.60x   0.57x
+sklearn: MLPClassifier fit                     1.367   0.86x   0.85x   0.82x   0.58x
+sklearn: MLP predict x3000 back-to-back        5.452   0.97x   0.97x   0.96x   0.73x
+service: MLP predict every 20 ms x100          6.428   0.23x   0.08x   0.04x   0.03x
+service: MLP predict every 200 ms x15          3.048   0.07x   0.03x   0.01x   0.01x
+geometric mean                                         0.64x   0.54x   0.48x   0.43x
+worse by more than 10%                                     0       0       0       0
+better by more than 10%                                   20      20      21      23
+
+workloads, 2 threads: WALL time vs default (2 VM(s), 6 paired runs per timeout)
+                                             default      22      20
+lapack: LU solve 3000                          2.570   1.00x   1.00x
+lapack: cholesky 3000                          2.496   1.00x   1.00x
+lapack: svd 800                                0.445   1.01x   1.00x
+lapack: eigh 1200                              0.565   1.00x   1.01x
+lapack: qr 1500                                1.122   1.00x   1.01x
+lapack: lstsq 4000x300                         0.191   1.00x   1.00x
+lapack: inv 600                                0.293   1.00x   1.00x
+scipy: expm 400                                0.149   1.01x   1.00x
+loop: solve 100 x20000                         1.643   1.00x   1.00x
+loop: solve 400 x1500                          2.708   1.00x   1.01x
+loop: power iteration 1500 x2000               0.419   1.00x   1.00x
+loop: tanh(W @ h) 256 x4000                    4.618   1.00x   1.01x
+loop: numpy MLP forward x400                   5.723   1.00x   1.00x
+numpy: cov 5000x400                            0.215   0.99x   0.98x
+sklearn: LogisticRegression fit                0.051   1.01x   1.01x
+sklearn: Ridge fit 50000x200                   0.325   0.99x   0.99x
+sklearn: LinearRegression 50000x200            0.647   0.99x   0.99x
+sklearn: PCA full 5000x300                     0.359   0.99x   1.00x
+sklearn: PCA randomized 20000x300              0.645   0.99x   1.00x
+sklearn: KMeans 100000x20                      0.101   0.72x   0.72x
+sklearn: GaussianProcess fit 600               1.225   1.00x   1.01x
+sklearn: MLPClassifier fit                     0.323   1.04x   1.05x
+sklearn: MLP predict x3000 back-to-back        1.642   1.04x   1.02x
+service: MLP predict every 20 ms x100          2.105   1.01x   1.00x
+service: MLP predict every 200 ms x15          3.020   1.00x   1.00x
+geometric mean                                         0.99x   0.99x
+worse by more than 10%                                     0       0
+better by more than 10%                                    1       1
+
+workloads, 2 threads: CPU time vs default (2 VM(s), 6 paired runs per timeout)
+                                             default      22      20
+lapack: LU solve 3000                          5.165   0.95x   0.94x
+lapack: cholesky 3000                          5.004   0.89x   0.89x
+lapack: svd 800                                0.947   0.86x   0.84x
+lapack: eigh 1200                              1.184   0.92x   0.91x
+lapack: qr 1500                                2.288   0.91x   0.91x
+lapack: lstsq 4000x300                         0.435   0.78x   0.76x
+lapack: inv 600                                0.652   0.90x   0.87x
+scipy: expm 400                                0.365   0.82x   0.81x
+loop: solve 100 x20000                         3.352   0.98x   0.98x
+loop: solve 400 x1500                          5.483   0.99x   0.95x
+loop: power iteration 1500 x2000               0.905   0.93x   0.93x
+loop: tanh(W @ h) 256 x4000                    9.298   0.99x   0.91x
+loop: numpy MLP forward x400                  11.512   0.99x   0.99x
+numpy: cov 5000x400                            0.492   0.82x   0.80x
+sklearn: LogisticRegression fit                0.275   0.46x   0.34x
+sklearn: Ridge fit 50000x200                   0.958   0.57x   0.56x
+sklearn: LinearRegression 50000x200            1.240   0.83x   0.82x
+sklearn: PCA full 5000x300                     0.770   0.86x   0.85x
+sklearn: PCA randomized 20000x300              2.013   0.60x   0.58x
+sklearn: KMeans 100000x20                      0.245   0.68x   0.65x
+sklearn: GaussianProcess fit 600               2.511   0.84x   0.81x
+sklearn: MLPClassifier fit                     0.710   0.95x   0.90x
+sklearn: MLP predict x3000 back-to-back        3.351   1.02x   1.00x
+service: MLP predict every 20 ms x100          2.244   0.11x   0.07x
+service: MLP predict every 200 ms x15          1.029   0.04x   0.03x
+geometric mean                                         0.68x   0.64x
+worse by more than 10%                                     0       0
+better by more than 10%                                   14      16
+
+small-call loops, 4 threads: calls per second vs default (higher is better) (2 VM(s), 6 paired runs per timeout)
+                                             default      24      22      20      18
+solve 100x100                              11368.636   1.02x   1.02x   1.01x   1.00x
+solve 400x400                                859.899   1.00x   1.00x   1.00x   0.97x
+matvec 1500 + norm                          8704.712   1.00x   1.00x   0.99x   1.00x
+tanh(W @ h) 256                             1168.477   1.00x   1.00x   0.98x   0.98x
+MLP forward 512x784                           99.355   1.01x   1.01x   1.01x   1.00x
+matmul 1000x1000                              48.927   1.00x   1.00x   1.01x   1.01x
+geometric mean                                         1.00x   1.01x   1.00x   0.99x
+worse by more than 10%                                     0       0       0       0
+better by more than 10%                                    0       0       0       0
+
+small-call loops, 8 threads: calls per second vs default (higher is better) (2 VM(s), 6 paired runs per timeout)
+                                             default      24      22      20      18
+solve 100x100                              11377.395   1.01x   1.00x   1.00x   1.01x
+solve 400x400                                862.020   1.00x   0.99x   1.00x   0.96x
+matvec 1500 + norm                          9101.262   1.00x   0.98x   0.98x   0.98x
+tanh(W @ h) 256                             1173.661   1.00x   1.00x   0.98x   0.98x
+MLP forward 512x784                          101.512   1.00x   1.00x   1.01x   1.02x
+matmul 1000x1000                              49.050   1.00x   1.01x   1.01x   1.01x
+geometric mean                                         1.00x   1.00x   1.00x   0.99x
+worse by more than 10%                                     0       0       0       0
+better by more than 10%                                    0       0       0       0
+
+multiproc.txt from service-ubuntu-24.04-arm-1
+200 requests per process; each = one 256x256 matmul + 5 ms single-threaded work
+(the single-threaded work alone is 1.00 s per process; 4 CPUs; median of 3 runs)
+
+--- 1 process(es) ---
+timeout      wall s    req/s    CPU s   p50 ms   p99 ms
+default        1.12      178      4.5     5.60     7.15
+24             1.12      179      3.9     5.59     5.96
+22             1.12      179      2.0     5.59     5.72
+20             1.12      178      1.6     5.61     5.64
+--- 2 process(es) ---
+timeout      wall s    req/s    CPU s   p50 ms   p99 ms
+default        3.02      133     12.0    15.96    30.00
+24             2.12      189      8.3     9.01    24.61
+22             1.44      278      5.0     7.06    13.80
+20             1.27      316      3.5     6.25    12.00
+--- 4 process(es) ---
+timeout      wall s    req/s    CPU s   p50 ms   p99 ms
+default        8.45       95     33.5    47.99    63.00
+24             5.15      155     20.4    25.00    57.01
+22             4.54      176     17.8    24.46    45.99
+20             4.31      186     16.8    23.00    48.89
+
+multiproc.txt from service-ubuntu-24.04-arm-2
+200 requests per process; each = one 256x256 matmul + 5 ms single-threaded work
+(the single-threaded work alone is 1.00 s per process; 4 CPUs; median of 3 runs)
+
+--- 1 process(es) ---
+timeout      wall s    req/s    CPU s   p50 ms   p99 ms
+default        1.12      179      4.5     5.59     5.70
+24             1.12      179      3.9     5.60     5.75
+22             1.12      178      2.1     5.59     7.01
+20             1.12      178      1.6     5.61     5.79
+--- 2 process(es) ---
+timeout      wall s    req/s    CPU s   p50 ms   p99 ms
+default        2.97      135     11.8    16.79    47.99
+24             2.25      178      8.7    10.29    25.62
+22             1.41      283      4.9     7.04     9.22
+20             1.28      312      3.5     6.22    18.16
+--- 4 process(es) ---
+timeout      wall s    req/s    CPU s   p50 ms   p99 ms
+default        8.66       92     34.4    47.96    72.00
+24             5.79      138     23.0    29.07    53.06
+22             4.90      163     19.2    24.63    45.97
+20             3.92      204     14.7    17.08    46.19
+
+cgroup.txt from service-ubuntu-24.04-arm-1
+--- docker --cpus=1: cgroup CPU limit 1 CPUs, 4 CPUs visible, median of 3 runs ---
+timeout      wall s    req/s    CPU s   p50 ms   p99 ms  throttled  thr. ms
+default        3.99       50      4.0     5.60    77.68         42    12229
+24             3.59       56      3.6     5.59    77.60         38     9440
+22             1.98      101      2.0     5.60    55.16         21     2765
+20             1.52      132      1.6     5.58    33.37         16      556
+--- docker --cpus=2: cgroup CPU limit 2 CPUs, 4 CPUs visible, median of 3 runs ---
+timeout      wall s    req/s    CPU s   p50 ms   p99 ms  throttled  thr. ms
+default        2.19       91      4.4     5.56    55.71         24     4450
+24             1.83      109      3.8     5.58    49.70         19     2562
+22             1.12      179      2.0     5.59     5.83          0        0
+20             1.13      177      1.6     5.58     5.72          0        0
+
+cgroup.txt from service-ubuntu-24.04-arm-2
+--- docker --cpus=1: cgroup CPU limit 1 CPUs, 4 CPUs visible, median of 3 runs ---
+timeout      wall s    req/s    CPU s   p50 ms   p99 ms  throttled  thr. ms
+default        3.97       50      4.1     5.60    83.03         44    12489
+24             3.59       56      3.7     5.60    78.71         38     7721
+22             1.91      105      2.0     5.60    55.17         21     2465
+20             1.52      132      1.5     5.59    32.96         15      591
+--- docker --cpus=2: cgroup CPU limit 2 CPUs, 4 CPUs visible, median of 3 runs ---
+timeout      wall s    req/s    CPU s   p50 ms   p99 ms  throttled  thr. ms
+default        2.19       91      4.4     5.56    55.68         24     4456
+24             1.87      107      3.8     5.59    49.60         19     2696
+22             1.12      179      2.0     5.59     5.71          1       16
+20             1.12      178      1.6     5.60     5.70          0        0

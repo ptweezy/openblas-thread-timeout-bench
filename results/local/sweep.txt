@@ -1,0 +1,169 @@
+spin_bench sweep, 16 CPUs, median of 3 pass(es)
+
+##### median microseconds per dgemm call #####
+
+threads=4 n=300
+  gap                  stock   patched  stock+24  stock+22  stock+21  stock+20
+  0 us busy              125       125       123       126       130       125
+  100 us busy            124       129       125       127       124       122
+  1000 us busy           130       180       145       180       180       180
+  3000 us busy           138       182       129       188       183       185
+  10000 us busy          136       197       192       195       193       200
+  20000 us sleep         147       323       237       318       318       312
+  200000 us sleep        334       337       344       251       335       325
+
+threads=4 n=1000
+  gap                  stock   patched  stock+24  stock+22  stock+21  stock+20
+  0 us busy             4140      4103      4136      4047      4231      4039
+  100 us busy           4122      4359      4236      4325      4177      4140
+  1000 us busy          4064      4033      4136      4055      4150      4143
+  3000 us busy          4057      4031      4112      4095      4071      4106
+  10000 us busy         4161      4205      4189      4238      4253      4245
+  20000 us sleep        4287      4383      4188      4418      4382      4280
+  200000 us sleep       4526      4557      4537      4663      4401      4462
+
+threads=8 n=300
+  gap                  stock   patched  stock+24  stock+22  stock+21  stock+20
+  0 us busy              119       117       119       115       115       116
+  100 us busy            114       115       117       116       114       115
+  1000 us busy           116       222       116       196       197       191
+  3000 us busy           117       231       117       239       245       240
+  10000 us busy          118       249       245       247       255       248
+  20000 us sleep         118       260       260       258       258       259
+  200000 us sleep        279       284       275       282       289       279
+
+threads=8 n=1000
+  gap                  stock   patched  stock+24  stock+22  stock+21  stock+20
+  0 us busy             3797      3733      3699      3752      3771      3750
+  100 us busy           3839      3737      3738      3720      3786      3749
+  1000 us busy          3725      3613      3610      3631      3634      3674
+  3000 us busy          3607      3638      3579      3691      3628      3691
+  10000 us busy         3615      3708      3571      3706      3699      3706
+  20000 us sleep        3601      3173      3157      3719      3706      3602
+  200000 us sleep       3926      3934      3095      3927      3898      3959
+
+##### p99 microseconds per dgemm call #####
+
+threads=4 n=300
+  gap                  stock   patched  stock+24  stock+22  stock+21  stock+20
+  0 us busy              273       278       245       284       285       231
+  100 us busy            281       254       260       240       234       274
+  1000 us busy           260       314       244       320       314       320
+  3000 us busy           257       344       282       336       332       354
+  10000 us busy          361       368       408       344       403       424
+  20000 us sleep         356       368       377       466       408       373
+  200000 us sleep        390       384       423       378       385       355
+
+threads=4 n=1000
+  gap                  stock   patched  stock+24  stock+22  stock+21  stock+20
+  0 us busy             7456      7712      7404      7548      7657      7758
+  100 us busy           7687      7526      7761      7487      7678      7636
+  1000 us busy          7246      7145      7550      7196      7286      7113
+  3000 us busy          7357      7229      7407      7218      7276      7205
+  10000 us busy         7292      4958      7201      7232      7202      7369
+  20000 us sleep        7238      7555      4725      7143      4915      5920
+  200000 us sleep       4830      5415      4835      4983      4900      4646
+
+threads=8 n=300
+  gap                  stock   patched  stock+24  stock+22  stock+21  stock+20
+  0 us busy              206       225       210       202       216       198
+  100 us busy            236       273       216       228       235       222
+  1000 us busy           222       321       240       324       328       298
+  3000 us busy           214       349       271       362       338       340
+  10000 us busy          318       390       354       352       424       328
+  20000 us sleep         319       356       401       400       443       388
+  200000 us sleep        409       413       437       409       425       355
+
+threads=8 n=1000
+  gap                  stock   patched  stock+24  stock+22  stock+21  stock+20
+  0 us busy             3994      4079      4014      4889      4002      3987
+  100 us busy           4160      4087      4066      6498      4236      4017
+  1000 us busy          4938      3952      4197      3912      3989      4928
+  3000 us busy          3709      4814      4132      4901      4177      4192
+  10000 us busy         3831      3840      3942      3982      4093      4039
+  20000 us sleep        3719      4169      4036      4254      3982      3963
+  200000 us sleep       4300      4094      4018      4038      4096      4078
+
+##### mean microseconds per dgemm call #####
+
+threads=4 n=300
+  gap                  stock   patched  stock+24  stock+22  stock+21  stock+20
+  0 us busy              144       151       143       153       161       153
+  100 us busy            147       156       149       155       153       142
+  1000 us busy           159       189       168       193       191       193
+  3000 us busy           165       214       156       213       213       218
+  10000 us busy          161       229       222       237       227       231
+  20000 us sleep         171       286       264       302       290       279
+  200000 us sleep        322       309       325       278       295       306
+
+threads=4 n=1000
+  gap                  stock   patched  stock+24  stock+22  stock+21  stock+20
+  0 us busy             4449      4634      4610      4713      4884      4523
+  100 us busy           4812      4649      4969      4829      4565      4560
+  1000 us busy          4476      4227      4847      4286      4278      4345
+  3000 us busy          4798      4166      4693      4306      4194      4214
+  10000 us busy         4951      4263      4253      4471      4342      4408
+  20000 us sleep        4950      4499      4257      4524      4367      4350
+  200000 us sleep       4484      4670      4521      4581      4477      4407
+
+threads=8 n=300
+  gap                  stock   patched  stock+24  stock+22  stock+21  stock+20
+  0 us busy              120       121       121       116       117       118
+  100 us busy            119       125       119       120       120       116
+  1000 us busy           119       219       118       206       207       203
+  3000 us busy           118       249       123       248       240       242
+  10000 us busy          120       252       245       244       268       247
+  20000 us sleep         124       261       260       253       267       257
+  200000 us sleep        294       296       297       303       295       299
+
+threads=8 n=1000
+  gap                  stock   patched  stock+24  stock+22  stock+21  stock+20
+  0 us busy             3713      3681      3646      3573      3696      3556
+  100 us busy           3769      3653      3672      3589      3673      3635
+  1000 us busy          3776      3222      3461      3239      3251      3637
+  3000 us busy          3545      3537      3496      3520      3487      3373
+  10000 us busy         3549      3382      3247      3372      3451      3483
+  20000 us sleep        3484      3144      3181      3343      3523      3102
+  200000 us sleep       3652      3559      3188      3394      3490      3614
+
+##### average cores busy (process CPU / wall) #####
+
+threads=4 n=300
+  gap                  stock   patched  stock+24  stock+22  stock+21  stock+20
+  0 us busy             3.98      3.99      3.99      3.99      3.98      3.98
+  100 us busy           3.98      3.99      3.98      4.00      3.98      3.98
+  1000 us busy          3.98      3.61      3.99      3.61      2.49      1.93
+  3000 us busy          4.00      1.98      3.99      1.98      1.57      1.36
+  10000 us busy         3.99      1.31      2.10      1.31      1.18      1.12
+  20000 us sleep        3.00      0.18      0.57      0.18      0.11      0.08
+  200000 us sleep       0.86      0.02      0.06      0.02      0.01      0.01
+
+threads=4 n=1000
+  gap                  stock   patched  stock+24  stock+22  stock+21  stock+20
+  0 us busy             3.98      3.95      3.97      3.92      3.86      3.92
+  100 us busy           3.98      3.97      3.98      3.91      3.97      3.93
+  1000 us busy          4.00      3.86      3.98      3.86      3.60      3.46
+  3000 us busy          3.99      3.07      3.96      3.08      2.88      2.80
+  10000 us busy         3.98      2.05      2.62      2.07      1.97      1.93
+  20000 us sleep        3.20      0.82      1.13      0.82      0.75      0.73
+  200000 us sleep       0.91      0.10      0.14      0.10      0.09      0.09
+
+threads=8 n=300
+  gap                  stock   patched  stock+24  stock+22  stock+21  stock+20
+  0 us busy             7.99      7.94      7.92      7.94      7.96      7.93
+  100 us busy           7.98      7.91      7.97      7.98      7.95      7.95
+  1000 us busy          7.98      6.85      7.98      6.85      4.26      2.96
+  3000 us busy          7.99      3.22      7.97      3.22      2.26      1.78
+  10000 us busy         7.97      1.71      3.53      1.71      1.41      1.25
+  20000 us sleep        6.97      0.37      1.29      0.37      0.22      0.14
+  200000 us sleep       2.00      0.04      0.13      0.04      0.02      0.02
+
+threads=8 n=1000
+  gap                  stock   patched  stock+24  stock+22  stock+21  stock+20
+  0 us busy             7.94      7.90      7.92      7.70      7.69      7.48
+  100 us busy           7.95      7.82      7.93      7.84      7.73      7.45
+  1000 us busy          7.96      7.45      7.96      7.39      6.70      6.34
+  3000 us busy          7.96      5.47      7.84      5.45      4.95      4.71
+  10000 us busy         7.98      3.12      4.47      3.12      2.87      2.81
+  20000 us sleep        7.11      1.28      2.09      1.33      1.24      1.06
+  200000 us sleep       2.09      0.16      0.24      0.16      0.14      0.14

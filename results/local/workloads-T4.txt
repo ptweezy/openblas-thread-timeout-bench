@@ -1,0 +1,70 @@
+
+=== OPENBLAS_NUM_THREADS=4 on 16 CPUs, 6 repetitions ===
+Per timeout: median over repetitions of (this timeout / default of the same repetition).
+
+WALL time
+workload                                   default s      24      22      21      20   noise
+lapack: LU solve 3000                          0.558   1.03x   0.99x   0.98x   1.00x   34%
+lapack: cholesky 3000                          0.852   0.97x   0.96x   0.97x   0.96x   45%
+lapack: svd 800                                0.150   0.99x   1.00x   0.98x   1.00x   39%
+lapack: eigh 1200                              0.138   0.98x   0.97x   0.90x   0.92x   57%
+lapack: qr 1500                                0.324   0.92x   0.92x   0.91x   0.97x   68%
+lapack: lstsq 4000x300                         0.082   0.99x   0.99x   0.98x   1.00x   53%
+lapack: inv 600                                0.083   1.04x   1.18x   1.03x   0.96x   87%
+scipy: expm 400                                0.029   1.02x   0.99x   0.97x   1.07x   115%
+loop: solve 100 x20000                         0.813   1.03x   0.98x   0.98x   0.93x   106%
+loop: solve 400 x1500                          0.761   1.03x   1.00x   1.03x   1.04x   75%
+loop: power iteration 1500 x2000               0.122   0.90x   0.93x   0.88x   1.09x   128%
+loop: tanh(W @ h) 256 x4000                    0.640   0.96x   0.98x   0.98x   1.00x   58%
+loop: numpy MLP forward x400                   0.870   1.05x   0.96x   0.95x   1.03x   52%
+numpy: cov 5000x400                            0.044   1.13x   0.96x   1.03x   1.02x   34%
+sklearn: LogisticRegression fit                0.029   1.13x   0.95x   1.02x   1.14x   93%
+sklearn: Ridge fit 50000x200                   0.148   1.03x   0.95x   0.89x   1.01x   25%
+sklearn: LinearRegression 50000x200            0.274   1.01x   0.98x   1.01x   1.01x   41%
+sklearn: PCA full 5000x300                     0.128   0.98x   0.94x   0.94x   1.02x   43%
+sklearn: PCA randomized 20000x300              0.200   0.99x   0.98x   0.96x   0.96x   50%
+sklearn: KMeans 100000x20                      0.050   1.02x   0.98x   1.03x   1.12x   117%
+sklearn: GaussianProcess fit 600               0.307   1.04x   0.98x   1.04x   0.98x   40%
+sklearn: MLPClassifier fit                     0.137   1.04x   1.09x   0.98x   1.00x   89%
+sklearn: MLP predict x3000 back-to-back        0.508   1.05x   0.99x   1.03x   1.02x   77%
+service: MLP predict every 20 ms x100          2.036   1.00x   1.01x   1.01x   1.01x   3%
+service: MLP predict every 200 ms x15          3.011   1.00x   1.00x   1.00x   1.00x   1%
+geometric mean                                         1.01x   0.99x   0.98x   1.01x
+workloads slower by more than 10%                          2       1       0       2
+workloads faster by more than 10%                          1       0       2       0
+total seconds                                  12.26   12.17   12.01   12.05   12.13
+
+CPU time, all threads
+workload                                   default s      24      22      21      20   noise
+lapack: LU solve 3000                          2.242   0.71x   0.67x   0.68x   0.67x   35%
+lapack: cholesky 3000                          3.367   0.55x   0.52x   0.52x   0.51x   42%
+lapack: svd 800                                0.743   0.69x   0.53x   0.47x   0.42x   35%
+lapack: eigh 1200                              0.690   0.72x   0.63x   0.58x   0.57x   37%
+lapack: qr 1500                                1.384   0.62x   0.60x   0.58x   0.60x   55%
+lapack: lstsq 4000x300                         0.466   0.57x   0.47x   0.45x   0.42x   46%
+lapack: inv 600                                0.499   0.69x   0.72x   0.64x   0.57x   58%
+scipy: expm 400                                0.284   0.43x   0.37x   0.33x   0.34x   81%
+loop: solve 100 x20000                         3.383   0.97x   0.95x   0.96x   0.90x   78%
+loop: solve 400 x1500                          3.179   0.97x   0.95x   0.99x   0.97x   56%
+loop: power iteration 1500 x2000               0.659   0.69x   0.70x   0.67x   0.81x   82%
+loop: tanh(W @ h) 256 x4000                    2.728   0.90x   0.94x   0.92x   0.93x   43%
+loop: numpy MLP forward x400                   3.642   1.00x   0.92x   0.90x   0.97x   34%
+numpy: cov 5000x400                            0.339   0.57x   0.47x   0.45x   0.42x   32%
+sklearn: LogisticRegression fit                0.522   0.40x   0.28x   0.27x   0.23x   26%
+sklearn: Ridge fit 50000x200                   0.942   0.36x   0.29x   0.27x   0.30x   29%
+sklearn: LinearRegression 50000x200            0.941   0.66x   0.59x   0.55x   0.54x   45%
+sklearn: PCA full 5000x300                     0.649   0.65x   0.56x   0.54x   0.57x   34%
+sklearn: PCA randomized 20000x300              1.635   0.62x   0.43x   0.37x   0.35x   35%
+sklearn: KMeans 100000x20                      0.381   0.55x   0.53x   0.52x   0.54x   189%
+sklearn: GaussianProcess fit 600               1.396   0.92x   0.69x   0.62x   0.55x   30%
+sklearn: MLPClassifier fit                     0.717   0.80x   0.83x   0.74x   0.75x   58%
+sklearn: MLP predict x3000 back-to-back        2.205   0.97x   0.92x   0.94x   0.92x   46%
+service: MLP predict every 20 ms x100          6.290   0.18x   0.05x   0.03x   0.02x   14%
+service: MLP predict every 200 ms x15          2.582   0.07x   0.02x   0.01x   0.01x   14%
+geometric mean                                         0.58x   0.47x   0.43x   0.42x
+workloads slower by more than 10%                          0       0       0       0
+workloads faster by more than 10%                         19      20      20      20
+total seconds                                  41.83   26.82   24.38   24.03   23.32
+
+noise = interquartile range of the paired ratios, relative to their median, median across timeouts
+* = hit the time cap in at least one run and was scaled to full size
