@@ -1,0 +1,70 @@
+
+=== OPENBLAS_NUM_THREADS=16 on 16 CPUs, 3 repetitions ===
+Per timeout: median over repetitions of (this timeout / default of the same repetition).
+
+WALL time
+workload                                   default s      22   noise
+lapack: LU solve 3000 *                       14.449   0.50x
+lapack: cholesky 3000 *                       13.501   0.19x
+lapack: svd 800                                4.987   0.25x
+lapack: eigh 1200                             10.966   0.22x
+lapack: qr 1500 *                              9.508   0.34x
+lapack: lstsq 4000x300                         1.748   0.32x
+lapack: inv 600 *                             20.729   0.51x
+scipy: expm 400                                3.689   0.44x
+loop: solve 100 x20000 *                     938.536   0.43x
+loop: solve 400 x1500 *                     1010.687   0.49x
+loop: power iteration 1500 x2000 *             8.323   0.20x
+loop: tanh(W @ h) 256 x4000 *                 20.218   0.19x
+loop: numpy MLP forward x400                   4.782   0.37x
+numpy: cov 5000x400                            0.028   1.11x
+sklearn: LogisticRegression fit                0.679   0.16x
+sklearn: Ridge fit 50000x200                   0.246   0.91x
+sklearn: LinearRegression 50000x200            1.086   0.41x
+sklearn: PCA full 5000x300                     4.186   0.30x
+sklearn: PCA randomized 20000x300              2.716   0.29x
+sklearn: KMeans 100000x20                      0.135   0.42x
+sklearn: GaussianProcess fit 600               0.798   0.48x
+sklearn: MLPClassifier fit                     2.326   0.20x
+sklearn: MLP predict x3000 back-to-back *     13.357   0.23x
+service: MLP predict every 20 ms x100          2.910   0.74x
+service: MLP predict every 200 ms x15          3.126   0.97x
+geometric mean                                         0.37x
+workloads slower by more than 10%                          1
+workloads faster by more than 10%                         22
+total seconds                                2093.88  920.69
+
+CPU time, all threads
+workload                                   default s      22   noise
+lapack: LU solve 3000 *                      219.892   0.44x
+lapack: cholesky 3000 *                      207.347   0.13x
+lapack: svd 800                               76.841   0.21x
+lapack: eigh 1200                            168.374   0.20x
+lapack: qr 1500 *                            143.223   0.30x
+lapack: lstsq 4000x300                        27.360   0.26x
+lapack: inv 600 *                            317.503   0.45x
+scipy: expm 400                               56.813   0.39x
+loop: solve 100 x20000 *                   14382.540   0.38x
+loop: solve 400 x1500 *                    15768.496   0.43x
+loop: power iteration 1500 x2000 *           130.364   0.18x
+loop: tanh(W @ h) 256 x4000 *                321.334   0.17x
+loop: numpy MLP forward x400                  73.803   0.26x
+numpy: cov 5000x400                            0.696   0.35x
+sklearn: LogisticRegression fit               11.003   0.10x
+sklearn: Ridge fit 50000x200                   3.458   0.09x
+sklearn: LinearRegression 50000x200           15.131   0.24x
+sklearn: PCA full 5000x300                    64.145   0.27x
+sklearn: PCA randomized 20000x300             40.600   0.24x
+sklearn: KMeans 100000x20                      1.638   0.19x
+sklearn: GaussianProcess fit 600              12.691   0.23x
+sklearn: MLPClassifier fit                    36.325   0.15x
+sklearn: MLP predict x3000 back-to-back *    191.286   0.20x
+service: MLP predict every 20 ms x100         44.834   0.04x
+service: MLP predict every 200 ms x15         12.902   0.02x
+geometric mean                                         0.20x
+workloads slower by more than 10%                          0
+workloads faster by more than 10%                         25
+total seconds                               32210.9112323.27
+
+noise = interquartile range of the paired ratios, relative to their median, median across timeouts
+* = hit the time cap in at least one run and was scaled to full size

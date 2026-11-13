@@ -9,7 +9,7 @@ All numbers compare the default idle timeout (`THREAD_TIMEOUT` 28) with shorter 
   - `ubuntu-24.04-arm`: Neoverse-N2, 4 vCPUs.
 - C harness: OpenBLAS at 5809b12, built on the runner with the autodetected target.
 - Python parts: NumPy 2.5.4 (bundles OpenBLAS 0.3.34), SciPy 1.18.1 (bundles 0.3.31.dev), scikit-learn 1.9.1, all from PyPI, pthreads threading layer.
-- Local machine: AMD Ryzen 7 9800X3D (8 cores, 16 threads), Docker on WSL2. It was shared with other workloads during the runs, so pools were kept at 8 threads or fewer and every timeout was run 5 to 8 times, interleaved.
+- Local machine: AMD Ryzen 7 9800X3D (8 cores, 16 threads), Docker on WSL2. It was shared with other workloads during the first runs, so pools were kept at 8 threads or fewer and every timeout was run 5 to 8 times, interleaved. Pools of 12 and 16 threads were measured later, when it was quieter (see "Larger pools on the local machine").
 
 Raw output: `results/runners/aggregate.txt` (from `aggregate.py`) and `results/local/`.
 
@@ -83,8 +83,34 @@ Average cores busy over the same runs, with 10 ms gaps: 3.99 -> 1.61 (x86-64), 3
 
 A call that arrives after the workers have gone to sleep pays for waking them: about 20 microseconds in total on the 4-vCPU runners, and about 15 microseconds per thread woken on the local machine (about 55 with 4 threads, 110 to 130 with 8). `dgemm` 1000x1000 (4 ms per call) is within 3% in every row.
 
+## Larger pools on the local machine
+
+A later run with the machine quiet except for one unrelated container that held one core throughout (other host processes: about half a core). A 12-thread pool fits beside that; a 16-thread pool does not. Raw output in `results/local-quiet/`.
+
+12 threads, 5 paired repetitions:
+
+| | 2^24 | 2^22 | 2^21 | 2^20 |
+|---|---|---|---|---|
+| 25 workloads, wall time, geometric mean | 0.88x | 0.84x | 0.84x | 0.86x |
+| Workloads more than 10% slower | 0 | 0 | 1 | 4 |
+| CPU time, geometric mean | 0.46x | 0.34x | 0.31x | 0.27x |
+| Small-call loops, calls per second | 0.98x to 1.04x | 0.99x to 1.03x | 0.99x to 1.06x | 0.99x to 1.08x |
+
+At 2^22 the largest slowdowns are `expm` 400 (1.06x) and `inv` 600 (1.05x). At 2^21 `MLPClassifier` fit is 1.30x, and at 2^20 back-to-back `predict_proba` is 2.15x. Total CPU for the suite goes from 154.9 s to 69.2 s at 2^22.
+
+`dgemm` with 12 threads, median microseconds, unchanged -> patched: 300x300 is 80 -> 80 back-to-back, 82 -> 259 after 1 ms and 84 -> 317 after 10 ms; 1000x1000 is 2472 -> 2836 after 10 ms. Across pool sizes the wake costs about 18 microseconds per thread: about 55 with 4 threads, 105 to 130 with 8, 180 to 240 with 12.
+
+16 threads with one of the 16 CPUs busy elsewhere:
+
+- With the default, everything is far slower than with 12 threads: six LU solves of size 3000 take 14.4 s instead of 0.39 s, and the `solve` 100x100 loop runs 24 calls per second instead of 12,245.
+- 2^22 is faster than the default on every loop: `solve` 100 2.11x, `solve` 400 2.05x, matvec 5.35x, `tanh(W @ h)` 5.11x, MLP forward 1.72x, matmul 1000 1.47x.
+- The 25 workloads (3 paired repetitions, each capped at 6 s and scaled) take 0.37x the wall time at 2^22 by geometric mean. 22 are more than 10% faster and one is slower (`cov` 5000x400, 1.11x of 0.03 s).
+- Back-to-back `dgemm` 300x300: median 4003 -> 980 microseconds.
+
+An earlier run at 12 and 16 threads, made while other work was using 4 to 5 cores, had shown slowdowns at 2^22 (3.3x on the `solve` 100x100 loop at 12 threads). They did not reproduce here.
+
 ## What is not covered
 
 - Every machine here is a virtual machine (Azure for the runners, WSL2 locally). There are no bare-metal numbers.
-- No machine has more than 16 CPUs. The caller wakes sleeping workers one at a time, so the cost of a wake grows with the pool size.
-- Locally, pools larger than 8 threads were not measured reliably because the machine was shared.
+- No machine has more than 16 CPUs. The caller wakes sleeping workers one at a time, so the cost of a wake grows with the pool size, and the margin shrinks with it: 2^21 was clean with 8 threads and made one workload 1.3x slower with 12.
+- A 16-thread pool on a 16-CPU machine with nothing else running. One core was busy during every 16-thread run.

@@ -1,0 +1,9 @@
+
+=== OPENBLAS_NUM_THREADS=16 on 16 CPUs: 5 repetitions of 3 s per loop ===
+loop                   default calls/s  cores   24 speedup  cores   22 speedup  cores   21 speedup  cores   20 speedup  cores
+solve 100x100                       24   15.2        1.14x   14.2        2.11x   13.3        2.44x   12.8        2.75x   12.2
+solve 400x400                        2   15.2        1.32x   14.6        2.05x   13.9        2.07x   13.1        2.26x   13.0
+matvec 1500 + norm                 214   15.2        1.39x   14.9        5.35x   14.0       10.30x   12.9       18.23x   11.2
+tanh(W @ h) 256                    199   15.3        1.43x   14.8        5.11x   13.7        6.55x   10.6       10.96x   10.0
+MLP forward 512x784                 94   15.2        1.07x   13.4        1.72x    9.0        2.40x    7.9        2.69x    6.8
+matmul 1000x1000                   158   15.3        1.31x   14.5        1.47x   11.5        1.56x   11.0        1.72x   10.9
