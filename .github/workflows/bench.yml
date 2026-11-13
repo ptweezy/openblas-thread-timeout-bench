@@ -1,0 +1,128 @@
+name: bench
+
+# Times OpenBLAS's idle-thread timeout (THREAD_TIMEOUT / OPENBLAS_THREAD_TIMEOUT) on
+# GitHub-hosted Linux runners.  Three parts, each on its own VM:
+#   sweep      builds OpenBLAS unchanged and with thread-timeout.patch from the same
+#              commit, then times a threaded dgemm after idle gaps (spin_bench.c).
+#   workloads  NumPy / SciPy / scikit-learn workloads from the PyPI wheels, wall and
+#              CPU time per timeout, at the runner's CPU count and at half of it.
+#   service    small-call loops at and above the CPU count, several worker processes,
+#              and one process inside CPU-limited containers.
+
+on:
+  workflow_dispatch:
+    inputs:
+      runners:
+        description: JSON list of Linux runner labels
+        default: '["ubuntu-24.04", "ubuntu-24.04-arm"]'
+      reps:
+        description: JSON list of job numbers per runner (each job gets its own VM, maybe a different CPU)
+        default: '[1, 2]'
+      parts:
+        description: JSON list of parts (sweep, workloads, service)
+        default: '["sweep", "workloads", "service"]'
+
+permissions:
+  contents: read
+
+env:
+  OPENBLAS_REF: 5809b12a4259c26185f59673f636a58414e0f413
+
+jobs:
+  bench:
+    name: ${{ matrix.part }} / ${{ matrix.os }} / run ${{ matrix.rep }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ${{ fromJSON(inputs.runners || '["ubuntu-24.04", "ubuntu-24.04-arm"]') }}
+        rep: ${{ fromJSON(inputs.reps || '[1, 2]') }}
+        part: ${{ fromJSON(inputs.parts || '["sweep", "workloads", "service"]') }}
+    defaults:
+      run:
+        shell: bash
+    env:
+      OUT_DIR: ${{ github.workspace }}/out
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Machine
+        run: |
+          mkdir -p "$OUT_DIR"
+          {
+            echo "runner: ${{ matrix.os }}, run ${{ matrix.rep }}"
+            lscpu | grep -E "Architecture|Model name|^CPU\(s\)|Thread\(s\)|Core\(s\)|Socket|MHz|BogoMIPS|Hypervisor" || true
+            echo "kernel: $(uname -r)"
+            free -g | sed -n 2p
+          } | tee "$OUT_DIR/machine.txt"
+
+      - name: Build OpenBLAS, unchanged and patched
+        if: matrix.part == 'sweep'
+        run: bash build.sh
+
+      - name: Sweep
+        if: matrix.part == 'sweep'
+        env:
+          SWEEP_THREADS: "2,4,8"
+          SWEEP_REPS: "2"
+        run: python sweep.py | tee "$OUT_DIR/sweep.txt"
+
+      - name: Python packages
+        if: matrix.part != 'sweep'
+        run: |
+          python -m pip install -q numpy scipy scikit-learn threadpoolctl
+          python - <<'EOF' | tee "$OUT_DIR/packages.txt"
+          import numpy, scipy, scipy.linalg, sklearn
+          from threadpoolctl import threadpool_info
+          print("numpy", numpy.__version__, "scipy", scipy.__version__, "scikit-learn", sklearn.__version__)
+          for lib in threadpool_info():
+              print({k: lib[k] for k in ("user_api", "internal_api", "version", "threading_layer", "num_threads", "architecture") if k in lib})
+          EOF
+
+      - name: Workloads at the CPU count and at half of it
+        if: matrix.part == 'workloads'
+        run: |
+          n=$(nproc)
+          python workloads.py "$n" 3 | tee "$OUT_DIR/workloads-T$n.txt"
+          WORKLOADS_TIMEOUTS=default,22,20 python workloads.py $((n / 2)) 3 | tee "$OUT_DIR/workloads-T$((n / 2)).txt"
+
+      - name: Small-call loops at and above the CPU count
+        if: matrix.part == 'service'
+        run: |
+          n=$(nproc)
+          python rate.py "$n" 3 3 | tee "$OUT_DIR/rate-T$n.txt"
+          python rate.py $((n * 2)) 3 3 | tee "$OUT_DIR/rate-T$((n * 2)).txt"
+
+      - name: Worker processes
+        if: matrix.part == 'service'
+        env:
+          MULTIPROC_PROCS: "1,2,4"
+        run: python multiproc.py | tee "$OUT_DIR/multiproc.txt"
+
+      - name: CPU-limited containers
+        if: matrix.part == 'service'
+        run: |
+          for n in 1 2; do
+            docker run --rm --cpus=$n -v "$PWD:/w" -w /w python:3.13-slim \
+              sh -c "pip install -q --root-user-action=ignore numpy && python cgroup_limit.py 'docker --cpus=$n'"
+          done | tee "$OUT_DIR/cgroup.txt"
+
+      - name: Summary
+        if: always()
+        run: |
+          for f in "$OUT_DIR"/*.txt; do
+            [ -e "$f" ] || continue
+            { echo "### $(basename "$f")"; echo '```'; cat "$f"; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          done
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ${{ matrix.part }}-${{ matrix.os }}-${{ matrix.rep }}
+          path: out/
